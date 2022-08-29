@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="searchConsole:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/searchConsole_jar</output-path>
+    <root id="archive" name="searchConsole.jar">
+      <element id="module-output" name="searchConsole" />
+    </root>
+  </artifact>
+</component>

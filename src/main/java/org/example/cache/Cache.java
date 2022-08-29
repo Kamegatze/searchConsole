@@ -1,0 +1,89 @@
+package org.example.cache;
+
+import java.io.*;
+import java.util.*;
+
+public class Cache implements CacheParent {
+    private final String[] cacheFile;
+    private final String pathFile;
+    private final int numberColum;
+    private final int countLine;
+
+    @Override
+    public int getCountLine() {
+        return countLine;
+    }
+    @Override
+    public int getNumberColum() {
+        return numberColum;
+    }
+    @Override
+    public String getPathFile() {
+        return pathFile;
+    }
+    @Override
+    public String[] getCacheFile() {
+        return cacheFile;
+    }
+
+    public Cache(String pathFile, int numberColum) throws IOException {
+        this.pathFile = pathFile;
+        this.numberColum = numberColum;
+        this.countLine = countLine();
+        this.cacheFile = cacheReadCVM();
+    }
+
+    private int countLine() throws IOException{
+        //int countLine = 0;
+        //File file = new File(pathFile);
+        //try {
+        //    Scanner scanner = new Scanner(file);
+        //    while (scanner.hasNextLine())
+        //    {
+        //       String line = scanner.nextLine();
+        //        countLine++;
+        //    }
+        //    scanner.close();
+        //}
+        //catch (Exception e){
+         //   e.printStackTrace();
+        //}
+        //return countLine;
+        try (var lnr = new LineNumberReader(new FileReader(pathFile))) {
+            while (lnr.readLine() != null) ;
+            return lnr.getLineNumber();
+        }
+    }
+
+    private String[] cacheReadCVM(){
+        int countLine = getCountLine();
+        String[] cacheFile = new String[2500];
+        try{
+            File file = new File(pathFile);
+            Scanner scanner = new Scanner(file);
+            if(countLine < 2500){
+                for (int i = 0; i < countLine; i++) {
+                    String line = scanner.nextLine();
+                    cacheFile[i] = line;
+                }
+            }
+            else{
+                int count = 0;
+                int i = 0;
+                while (scanner.hasNextLine()){
+                    count++;
+                    String line = scanner.nextLine();
+                    if(count >= countLine - 2499 && count <= countLine){
+                        cacheFile[i] = line;
+                        i++;
+                    }
+                }
+            }
+            scanner.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return cacheFile;
+    }
+}
