@@ -59,27 +59,26 @@ public class Cache implements CacheParent {
         int countLine = getCountLine();
         String[] cacheFile = new String[2500];
         try{
-            File file = new File(pathFile);
-            Scanner scanner = new Scanner(file);
+            BufferedReader bufferedReader = new BufferedReader( new FileReader(pathFile), 256);
             if(countLine < 2500){
                 for (int i = 0; i < countLine; i++) {
-                    String line = scanner.nextLine();
+                    String line = bufferedReader.readLine();
                     cacheFile[i] = line;
                 }
             }
             else{
                 int count = 0;
                 int i = 0;
-                while (scanner.hasNextLine()){
+                String line;
+                while ((line = bufferedReader.readLine()) != null){
                     count++;
-                    String line = scanner.nextLine();
                     if(count >= countLine - 2499 && count <= countLine){
                         cacheFile[i] = line;
                         i++;
                     }
                 }
             }
-            scanner.close();
+            bufferedReader.close();
         }
         catch (Exception e){
             e.printStackTrace();
