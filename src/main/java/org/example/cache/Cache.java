@@ -32,7 +32,7 @@ public class Cache implements CacheParent {
         this.countLine = countLine();
         this.cacheFile = cacheReadCVM();
     }
-
+    // подсчёт количества строк
     private int countLine() throws IOException{
         //int countLine = 0;
         //File file = new File(pathFile);
@@ -54,7 +54,7 @@ public class Cache implements CacheParent {
             return lnr.getLineNumber();
         }
     }
-
+    //загрузка в кэш данных
     private String[] cacheReadCVM(){
         int countLine = getCountLine();
         String[] cacheFile = new String[2500];

@@ -11,8 +11,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         try {
-            //int colum = Integer.parseInt(args[0]) - 1;
-            int colum = 1;
+            int colum = Integer.parseInt(args[0]) - 1;
+            //int colum = 1;
             if(colum < 0){
                 System.out.println("Введите значение больше 0");
             }
@@ -31,10 +31,12 @@ public class Main {
                             break;
                         }
                         Search search = new Search(cache, searchString);
+                        ArrayList<String[]> searching = null;
                         long time = System.currentTimeMillis();
-                        ArrayList<String[]> searching = search.sercheCache(cacheFile);
+                        searching = search.sercheCache(cacheFile);
                         searching = search.searchCSV(searching);
                         time = System.currentTimeMillis() - time;
+
                         search.outputString(searching);
                         System.out.println("Количество найденных строк: " + searching.size() + " затраченное время на поиск: " + time + " мс");
                     }
